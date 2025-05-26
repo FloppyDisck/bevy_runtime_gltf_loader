@@ -1,5 +1,5 @@
 [package]
-name = "bevy_model_composer"
+name = "bevy_runtime_gltf_loader"
 version = "0.1.0"
 edition = "2024"
 

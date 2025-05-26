@@ -1,4 +1,4 @@
-use crate::parts_map::{EmptyMaterialExtension, WithMaterialExtension};
+use crate::{EmptyMaterialExtension, WithMaterialExtension};
 use bevy::asset::AssetServer;
 use bevy::pbr::MaterialExtension;
 use bevy::prelude::{Commands, Entity, GltfAssetLabel, Res, SceneRoot};

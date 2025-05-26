@@ -1,4 +1,4 @@
-use crate::parts_map::part_loader::PartLoader;
+use crate::part_loader::PartLoader;
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]

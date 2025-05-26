@@ -866,15 +866,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "bevy_model_composer"
-version = "0.1.0"
-dependencies = [
- "bevy",
- "bevy_common_assets",
- "serde",
-]
-
-[[package]]
 name = "bevy_pbr"
 version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1059,6 +1050,15 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "bevy_runtime_gltf_loader"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "bevy_common_assets",
+ "serde",
 ]
 
 [[package]]

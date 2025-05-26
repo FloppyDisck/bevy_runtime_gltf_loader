@@ -1,5 +1,5 @@
-use crate::parts_map::config_singleton::config_singleton;
-use crate::parts_map::{PartsMap, replace_material};
+use crate::config_singleton::config_singleton;
+use crate::{PartsMap, replace_material};
 use bevy::asset::Asset;
 use bevy::pbr::MaterialExtension;
 use bevy::prelude::{Plugin, Reflect, States};

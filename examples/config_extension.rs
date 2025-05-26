@@ -4,7 +4,7 @@ use bevy::prelude::{
     App, AppExtStates, Camera3d, Commands, NextState, OnEnter, PointLight, Reflect, Res, ResMut,
     States, Transform, Vec3, default,
 };
-use bevy_model_composer::parts_map::{ModelComposerPlugin, PartsMap};
+use bevy_runtime_gltf_loader::{ModelComposerPlugin, PartsMap};
 use serde::Deserialize;
 
 #[derive(States, Default, Copy, Clone, Debug, PartialEq, Eq, Hash)]

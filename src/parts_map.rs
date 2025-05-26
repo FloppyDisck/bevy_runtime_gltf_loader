@@ -1,4 +1,4 @@
-use crate::parts_map::PartPath;
+use crate::PartPath;
 use bevy::prelude::{Asset, Deref, Reflect, Resource};
 use serde::Deserialize;
 use std::collections::HashMap;
