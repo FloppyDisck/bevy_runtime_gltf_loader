@@ -39,7 +39,7 @@ bevy = "0.16.0"
 
 ```rust
 use bevy::prelude::*;
-use bevy_runtime_gltf_loader::{SimpleModelComposerPlugin, SimplePartsMap};
+use bevy_runtime_gltf_loader::{SimpleRuntimeGltfLoaderPlugin, SimplePartsMap};
 
 #[derive(States, Default, Copy, Clone, Debug, PartialEq, Eq, Hash)]
 enum GameState {
@@ -54,7 +54,7 @@ fn main() {
         .add_plugins(DefaultPlugins)
         .init_state::<GameState>()
         .add_plugins(
-            SimpleModelComposerPlugin::default().load_single(
+            SimpleRuntimeGltfLoaderPlugin::default().load_single(
                 "./config.json",
                 GameState::Loading,
                 GameState::Playing,
@@ -95,7 +95,7 @@ You can extend your JSON configuration with custom data:
 
 ```rust
 use bevy::prelude::*;
-use bevy_runtime_gltf_loader::{ModelComposerPlugin, PartsMap};
+use bevy_runtime_gltf_loader::{RuntimeGltfLoaderPlugin, PartsMap};
 use serde::Deserialize;
 
 #[derive(Asset, Reflect, Deserialize)]
@@ -109,7 +109,7 @@ fn main() {
         .add_plugins(DefaultPlugins)
         .init_state::<GameState>()
         .add_plugins(
-            ModelComposerPlugin::<CustomData>::default().load_single(
+            RuntimeGltfLoaderPlugin::<CustomData>::default().load_single(
                 "./extended_config.json",
                 GameState::Loading,
                 GameState::Playing,
@@ -177,7 +177,7 @@ fn main() {
         >::default())
         .init_state::<GameState>()
         .add_plugins(
-            SimpleModelComposerPlugin::default()
+            SimpleRuntimeGltfLoaderPlugin::default()
                 .load_single("./config.json", GameState::Loading, GameState::Playing)
                 .register_material_extension::<MyMaterialExtension>()
         )
@@ -201,8 +201,8 @@ fn setup_scene_with_materials(
 
 ### Core Types
 
-- **`SimpleModelComposerPlugin`**: Basic plugin for simple usage without custom data
-- **`ModelComposerPlugin<T>`**: Generic plugin that supports custom data types
+- **`SimpleRuntimeGltfLoaderPlugin`**: Basic plugin for simple usage without custom data
+- **`RuntimeGltfLoaderPlugin<T>`**: Generic plugin that supports custom data types
 - **`SimplePartsMap`**: Resource containing loaded parts (for simple usage)
 - **`PartsMap<T>`**: Generic resource containing loaded parts with custom data
 - **`PartPath<T>`**: Represents a single loadable part with optional custom data
@@ -211,7 +211,7 @@ fn setup_scene_with_materials(
 ### Plugin Configuration
 
 ```rust
-SimpleModelComposerPlugin::default ()
+SimpleRuntimeGltfLoaderPlugin::default ()
 .load_single(file_path, loading_state, target_state)
 .register_material_extension::<MaterialType>()
 ```

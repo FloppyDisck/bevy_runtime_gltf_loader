@@ -9,9 +9,9 @@ use bevy_common_assets::json::JsonAssetPlugin;
 use serde::Deserialize;
 use std::marker::PhantomData;
 
-pub type SimpleModelComposerPlugin = ModelComposerPlugin<EmptyExtension>;
+pub type SimpleRuntimeGltfLoaderPlugin = RuntimeGlftLoaderPlugin<EmptyExtension>;
 
-pub struct ModelComposerPlugin<EXTENSION, STATE = EmptyState, MATERIAL = EmptyMaterialExtension> {
+pub struct RuntimeGlftLoaderPlugin<EXTENSION, STATE = EmptyState, MATERIAL = EmptyMaterialExtension> {
     file_ending: &'static str,
     // Load a single config as a resource
     load_single: Option<LoadSingleConfig<STATE>>,
@@ -27,7 +27,7 @@ struct LoadSingleConfig<STATE> {
     to_state: STATE,
 }
 
-impl<EXTENSION, STATE, MATERIAL> ModelComposerPlugin<EXTENSION, STATE, MATERIAL> {
+impl<EXTENSION, STATE, MATERIAL> RuntimeGlftLoaderPlugin<EXTENSION, STATE, MATERIAL> {
     pub fn new(file_ending: &'static str) -> Self {
         Self {
             file_ending,
@@ -40,14 +40,14 @@ impl<EXTENSION, STATE, MATERIAL> ModelComposerPlugin<EXTENSION, STATE, MATERIAL>
 
     /// Register a set of systems that will register a single config as a resource you can then use
     /// This registered resource can then be found as `Res<PartsMap<EXTENSION>>`
-    /// If using `SimpleModelComposerPlugin` then the resource can also be accessed as `Res<SimplePartsMap>`
+    /// If using `SimpleRuntimeGltfLoaderPlugin` then the resource can also be accessed as `Res<SimplePartsMap>`
     pub fn load_single<NewState>(
         self,
         file: &'static str,
         run_in: NewState,
         to_state: NewState,
-    ) -> ModelComposerPlugin<EXTENSION, NewState, MATERIAL> {
-        ModelComposerPlugin {
+    ) -> RuntimeGlftLoaderPlugin<EXTENSION, NewState, MATERIAL> {
+        RuntimeGlftLoaderPlugin {
             file_ending: self.file_ending,
             register_material_extension: self.register_material_extension,
             load_single: Some(LoadSingleConfig {
@@ -62,8 +62,8 @@ impl<EXTENSION, STATE, MATERIAL> ModelComposerPlugin<EXTENSION, STATE, MATERIAL>
 
     pub fn register_material_extension<NewMaterial>(
         self,
-    ) -> ModelComposerPlugin<EXTENSION, STATE, NewMaterial> {
-        ModelComposerPlugin {
+    ) -> RuntimeGlftLoaderPlugin<EXTENSION, STATE, NewMaterial> {
+        RuntimeGlftLoaderPlugin {
             file_ending: self.file_ending,
             load_single: self.load_single,
             register_material_extension: true,
@@ -73,13 +73,13 @@ impl<EXTENSION, STATE, MATERIAL> ModelComposerPlugin<EXTENSION, STATE, MATERIAL>
     }
 }
 
-impl<EXTENSION, STATE, MATERIAL> Default for ModelComposerPlugin<EXTENSION, STATE, MATERIAL> {
+impl<EXTENSION, STATE, MATERIAL> Default for RuntimeGlftLoaderPlugin<EXTENSION, STATE, MATERIAL> {
     fn default() -> Self {
         Self::new(".json")
     }
 }
 
-impl<EXTENSION, STATE, MATERIAL> Plugin for ModelComposerPlugin<EXTENSION, STATE, MATERIAL>
+impl<EXTENSION, STATE, MATERIAL> Plugin for RuntimeGlftLoaderPlugin<EXTENSION, STATE, MATERIAL>
 where
     for<'de> EXTENSION: serde::Deserialize<'de> + Asset,
     STATE: States + FreelyMutableState + Clone,

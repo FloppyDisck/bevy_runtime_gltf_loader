@@ -4,7 +4,7 @@ use bevy::prelude::{
     App, AppExtStates, Camera3d, Commands, NextState, OnEnter, PointLight, Res, ResMut, States,
     Transform, Vec3, default,
 };
-use bevy_runtime_gltf_loader::{SimpleModelComposerPlugin, SimplePartsMap};
+use bevy_runtime_gltf_loader::{SimpleRuntimeGltfLoaderPlugin, SimplePartsMap};
 
 #[derive(States, Default, Copy, Clone, Debug, PartialEq, Eq, Hash)]
 enum RuntimeState {
@@ -18,7 +18,7 @@ pub fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .init_state::<RuntimeState>()
-        .add_plugins(SimpleModelComposerPlugin::default().load_single(
+        .add_plugins(SimpleRuntimeGltfLoaderPlugin::default().load_single(
             "./config.json",
             RuntimeState::Preload,
             RuntimeState::SceneSetup,

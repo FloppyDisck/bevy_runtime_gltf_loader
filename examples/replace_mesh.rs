@@ -6,7 +6,7 @@ use bevy::prelude::{
     Reflect, Res, ResMut, StandardMaterial, States, Transform, Vec3, default,
 };
 use bevy::render::render_resource::{AsBindGroup, ShaderRef};
-use bevy_runtime_gltf_loader::{SimpleModelComposerPlugin, SimplePartsMap};
+use bevy_runtime_gltf_loader::{SimpleRuntimeGltfLoaderPlugin, SimplePartsMap};
 
 #[derive(States, Default, Copy, Clone, Debug, PartialEq, Eq, Hash)]
 enum RuntimeState {
@@ -24,7 +24,7 @@ pub fn main() {
         >::default())
         .init_state::<RuntimeState>()
         .add_plugins(
-            SimpleModelComposerPlugin::default()
+            SimpleRuntimeGltfLoaderPlugin::default()
                 .load_single(
                     "./config.json",
                     RuntimeState::Preload,

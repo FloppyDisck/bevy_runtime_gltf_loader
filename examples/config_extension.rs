@@ -4,7 +4,7 @@ use bevy::prelude::{
     App, AppExtStates, Camera3d, Commands, NextState, OnEnter, PointLight, Reflect, Res, ResMut,
     States, Transform, Vec3, default,
 };
-use bevy_runtime_gltf_loader::{ModelComposerPlugin, PartsMap};
+use bevy_runtime_gltf_loader::{RuntimeGlftLoaderPlugin, PartsMap};
 use serde::Deserialize;
 
 #[derive(States, Default, Copy, Clone, Debug, PartialEq, Eq, Hash)]
@@ -26,7 +26,7 @@ pub fn main() {
         .add_plugins(DefaultPlugins)
         .init_state::<RuntimeState>()
         .add_plugins(
-            ModelComposerPlugin::<CustomExtension>::default().load_single(
+            RuntimeGlftLoaderPlugin::<CustomExtension>::default().load_single(
                 "./extended_config.json",
                 RuntimeState::Preload,
                 RuntimeState::SceneSetup,
