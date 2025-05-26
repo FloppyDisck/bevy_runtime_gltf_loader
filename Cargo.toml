@@ -1,0 +1,11 @@
+[package]
+name = "bevy_model_composer"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bevy = "0.16.0"
+serde = "1.0.219"
+bevy_common_assets = { version = "0.13.0", features = ["json"] }
+
+[features]

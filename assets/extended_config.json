@@ -1,0 +1,8 @@
+{
+  "DebugPart": {
+    "path": "./box.gltf",
+    "data": {
+      "hello": "world!"
+    }
+  }
+}
