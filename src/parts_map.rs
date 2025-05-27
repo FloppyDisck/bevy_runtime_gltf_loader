@@ -1,7 +1,9 @@
 use crate::PartPath;
-use bevy::prelude::{Asset, Deref, Reflect, Resource};
+use bevy::prelude::{Asset, BevyError, Deref, Reflect, Resource};
 use serde::Deserialize;
 use std::collections::HashMap;
+use std::error::Error;
+use std::fmt::Display;
 
 // Json loaded map of all available parts
 #[derive(Resource, Deref, Asset, Reflect, Deserialize)]
@@ -14,14 +16,28 @@ impl<EXTENSION: Asset> Default for PartsMap<EXTENSION> {
 }
 
 impl<EXTENSION: Asset> PartsMap<EXTENSION> {
-    pub fn contains(&self, name: &str) -> bool {
-        self.0.contains_key(name)
-    }
-
-    pub fn may_load_part(&self, name: &str) -> Option<&PartPath<EXTENSION>> {
-        self.0.get(name)
-    }
-    pub fn load_part(&self, name: &str) -> &PartPath<EXTENSION> {
-        self.may_load_part(name).unwrap()
+    pub fn load_part(&self, name: &str) -> Result<&PartPath<EXTENSION>, BevyError> {
+        self.get(name).ok_or(BevyError::from(PartNotFoundError::new(name)))
     }
 }
+
+#[derive(Debug)]
+pub struct PartNotFoundError {
+    pub part: String,
+}
+
+impl PartNotFoundError {
+    pub fn new(part: &str) -> Self {
+        Self {
+            part: part.to_string(),
+        }
+    }
+}
+
+impl Display for PartNotFoundError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "unable to read {} part", &self.part)
+    }
+}
+
+impl Error for PartNotFoundError {}
