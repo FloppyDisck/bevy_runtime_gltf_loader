@@ -6,7 +6,7 @@ use bevy::prelude::{Plugin, Reflect, States};
 use bevy::render::render_resource::AsBindGroup;
 use bevy::state::state::FreelyMutableState;
 use bevy_common_assets::json::JsonAssetPlugin;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use std::marker::PhantomData;
 
 pub type SimpleRuntimeGltfLoaderPlugin = RuntimeGlftLoaderPlugin<EmptyExtension>;
@@ -110,7 +110,7 @@ where
 pub enum EmptyState {}
 
 // For when you dont want to use the data field
-#[derive(Asset, Reflect, Debug, Deserialize, Copy, Clone)]
+#[derive(Asset, Reflect, Debug, Serialize, Deserialize, Copy, Clone)]
 pub struct EmptyExtension;
 
 pub type SimplePartsMap = PartsMap<EmptyExtension>;

@@ -2,9 +2,9 @@ use std::error::Error;
 use std::fmt::Display;
 use bevy::prelude::BevyError;
 use crate::part_loader::PartLoader;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct PartPath<EXTENSION> {
     pub path: String,
     pub data: Option<EXTENSION>,
