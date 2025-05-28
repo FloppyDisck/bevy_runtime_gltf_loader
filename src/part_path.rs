@@ -4,7 +4,7 @@ use bevy::prelude::BevyError;
 use crate::part_loader::PartLoader;
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PartPath<EXTENSION> {
     pub path: String,
     pub data: Option<EXTENSION>,
